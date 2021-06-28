@@ -24,5 +24,30 @@ class Array
         end
         arr
     end
+
+    def my_any?(&prc)
+        self.each {|ele| return true if prc.call(ele)}
+        false
+    end
+
+    def my_all?(&prc)
+        self.each {|ele| return false if !prc.call(ele)}
+        true
+    end
+
+    def my_flatten
+        #return [self] if !self.is_a?(Array)
+
+        self.inject([]) do |acc, ele|
+            if !ele.is_a?(Array)
+                acc += [ele]
+            else
+                acc += ele.my_flatten
+            end
+        end 
+    end
+    #p [1, 2, 3, [4, [5, 6]], [[[7]], 8]].my_flatten # => [1, 2, 3, 4, 5, 6, 7, 8]
+
+    
 end
 
