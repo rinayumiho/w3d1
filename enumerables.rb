@@ -68,14 +68,22 @@ class Array
         (0...self.length).each {|i| arr << self[(i+n)%self.length]}
         arr
     end
+
+    def my_join(sep = "")
+        str = ""
+        self.each do |ele|
+            str += ele + sep
+        end
+        return str.chop if sep != ""
+        str
+    end
+
+    def my_reverse
+        return self if self.length == 1
+        [self[-1]] + self[0...-1].my_reverse
+    end
     
 end
 
-
-
-
-a = [ "a", "b", "c", "d" ]
-p a.my_rotate         #=> ["b", "c", "d", "a"]
-p a.my_rotate(2)      #=> ["c", "d", "a", "b"]
-p a.my_rotate(-3)     #=> ["b", "c", "d", "a"]
-p a.my_rotate(15)     #=> ["d", "a", "b", "c"]
+p [ "a", "b", "c" ].my_reverse   #=> ["c", "b", "a"]
+p [ 1 ].my_reverse               #=> [1]
